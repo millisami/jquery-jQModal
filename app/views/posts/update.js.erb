@@ -1,0 +1,8 @@
+<% if @post.errors.empty? %>
+    <% p = render :partial => "post", :object => @post %>
+    parent_div_of_item.before('<%= p.gsub!(/n/, "")%>').remove(); // replace the div with new edited version
+    $.unblockUI();
+    notify('<%= escape_javascript(flash[:notice]) %>');
+<% else %>
+    parent_div_of_form.find(".error_messages").hide().html(error_messages(<%= @post.errors.to_json %>)).fadeIn(300);
+<% end %>
