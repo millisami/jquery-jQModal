@@ -1,0 +1,11 @@
+<% if @article.errors.empty? %>
+$('#new_articles').append('<p><%= @article.title %></p>');
+$("#new_article")[0].reset();
+$('#article_form').jqmHide();
+$("#article_form").before('<div id="flash_notice"><%= escape_javascript(flash.delete(:notice))%></div>');
+
+//$("#comments_count").html("<%#= escape_javascript(link_to(pluralize(@commentable.comments.count, 'Comment'), "#comments")) %>");
+//$("#commentsLists").append("<%#= escape_javascript(render :partial => 'shared/comment_list', :object => @comment) %>");
+<% else %>
+    $("#error_message").hide().html(error_messages(<%= @article.errors.to_json %>)).fadeIn(500).prependTo("#article_form");
+<% end %>
