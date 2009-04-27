@@ -1,5 +1,51 @@
 <% title "Articles" %>
+<% stylesheet('jqModal') %>
+<% content_for :page_styles do %>
+    /* jqModal base Styling courtesy of;
+  Brice Burgess <bhb@iceburg.net> */
 
+/* The Window's CSS z-index value is respected (takes priority). If none is supplied,
+  the Window's z-index value will be set to 3000 by default (in jqModal.js). You
+  can change this value by either;
+    a) supplying one via CSS
+    b) passing the "zIndex" parameter. E.g.  (window).jqm({zIndex: 500}); */
+  
+.jqmWindow {
+    display: none;
+
+    position: fixed;
+    top: 17%;
+    left: 50%;
+
+    margin-left: -300px;
+    width: 600px;
+
+    background-color: #EEE;
+    color: #333;
+    border: 1px solid black;
+    padding: 12px;
+}
+
+.jqmOverlay { background-color: #000; }
+
+/* Fixed posistioning emulation for IE6
+     Star selector used to hide definition from browsers other than IE6
+     For valid CSS, use a conditional include instead */
+* html .jqmWindow {
+     position: absolute;
+     top: expression((document.documentElement.scrollTop || document.body.scrollTop) + Math.round(17 * (document.documentElement.offsetHeight || document.body.clientHeight) / 100) + 'px');
+}
+    <% end %>
+<% content_for :function_scripts do %>
+    $().ready(function() {
+        $('#dialog').jqm();
+
+        $('#ex2').jqm({ajax: 'articles/1', trigger: 'a.ex2trigger'});
+        $('#article_form').jqm({trigger: 'a.form_trigger'});
+        $('#new_article').submitWithAjax();
+    });
+
+<% end %>
 <table>
   <tr>
     <th>Title</th>
@@ -16,4 +62,50 @@
   <% end %>
 </table>
 
-<p><%= link_to "New Article", new_article_path %></p>
+<div id="new_articles"></div>
+
+<a class="ex2trigger" href="#">view ajax modal</a>
+
+<div class="jqmWindow" id="ex2">
+Please wait... <img src="/images/ajax-loader.gif" alt="loading" />
+</div>
+
+<a href="#" class="jqModal">view Inline Modal</a>
+
+<div class="jqmWindow" id="article_form">
+        <a href="#" class="jqmClose">Close</a>
+        <% form_for(Article.new) do |f| %>
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :body %><br />
+    <%= f.text_area :body, :rows => 5 %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+            <% end %>
+</div>
+
+<div class="jqmWindow" id="dialog">
+        <a href="#" class="jqmClose">Close</a>
+        <hr>
+        <em>READ ME</em> -->
+        This is a "vanilla plain" jqModal window. Behavior and appeareance extend far beyond this.
+        The demonstrations on this page will show off a few possibilites. I recommend walking
+        through each one to get an understanding of jqModal <em>before</em> using it.
+
+        <br /><br />
+        You can view the sourcecode of examples by clicking the Javascript, CSS, and HTML tabs.
+        Be sure to checkout the <a href="README">documentation</a> too!
+
+        <br /><br />
+        <em>NOTE</em>; You can close windows by clicking the tinted background known as the "overlay".
+        Clicking the overlay will have no effect if the "modal" parameter is passed, or if the
+        overlay is disabled.
+</div>
+
+<div id="error_message" style="padding: 6px; display:none;"></div>
+
+<p><%= link_to "New Article", new_article_path %> | <a class="form_trigger" href="#">new article via jqm modal</a> </p>
+
