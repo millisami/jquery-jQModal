@@ -1,0 +1,17 @@
+log/*
+tmp/*
+database.yml
+*.yml
+*.sqlite
+*.sqlite3
+*.bak
+*.db
+*.sql
+doc/
+nbproject/
+.DS_Store
+.svn
+coverage
+public/uploads/*
+public/assets/**/*
+public/avatars/*
