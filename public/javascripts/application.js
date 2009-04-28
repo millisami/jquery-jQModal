@@ -2,8 +2,15 @@ jQuery.ajaxSetup({
   'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")}
 });
 
+var block_element;
 jQuery.fn.submitWithAjax = function() {
     this.submit(function() {
+        block_element = $(this).parent();
+        block_element.block({
+                message: '<h1>Processing</h1>',
+                css: { border: '3px solid #a00' }
+            });
+
         $.post($(this).attr("action"), $(this).serialize(), null, "script");
         return false;
     })
