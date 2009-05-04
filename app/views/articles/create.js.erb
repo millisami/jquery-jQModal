@@ -4,6 +4,7 @@ $("#new_article")[0].reset();
 block_element.unblock({
                 onUnblock: function(){ alert('onUnblock'); }
             });
+            $("#error_message").hide().html("");
 $('#article_form').jqmHide();
 $("#article_form").before('<div id="flash_notice"><%= escape_javascript(flash.delete(:notice))%></div>');
 

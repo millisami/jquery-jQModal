@@ -8,7 +8,7 @@ database.yml
 *.db
 *.sql
 doc/
-nbproject/
+nbproject/*
 .DS_Store
 .svn
 coverage
