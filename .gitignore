@@ -1,6 +1,5 @@
 log/*
 tmp/*
-database.yml
 *.yml
 *.sqlite
 *.sqlite3
