@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define do
+ActiveRecord::Schema.define(:version => 20090428082325) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
-    t.string "login", :null =>false
+    t.string   "login",                              :null => false
     t.string   "email",                              :null => false
     t.string   "crypted_password",                   :null => false
     t.string   "password_salt",                      :null => false
